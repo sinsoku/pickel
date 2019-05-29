@@ -7,7 +7,12 @@ module Searching
     def initialize(relation, params = {}, _options = {})
       @relation = relation
       @klass = relation.klass
-      @params = params ? params.transform_keys(&:to_sym) : {}
+      @params =
+        if params.nil? || (params.respond_to?(:permitted?) && params.permitted?)
+          params.to_h.symbolize_keys
+        else
+          params.to_unsafe_h
+        end
       @sorts = []
       @sorts << @params.delete(:s)
       @sorts << @params.delete(:sorts)
