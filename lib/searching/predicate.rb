@@ -40,7 +40,7 @@ module Searching
           { column => v }
         end
 
-      when_not?(v) ? klass.where.not(args) : klass.where(args)
+      when_not?(value) ? klass.where.not(args) : klass.where(args)
     end
 
     private
@@ -64,6 +64,10 @@ module Searching
       end
     end
 
+    def cast_bool(value)
+      ActiveModel::Type::Boolean.new.cast(value)
+    end
+
     # replace % \ to \% \\
     def escape_wildcards(unescaped)
       if ESCAPE_ADAPTERS.include?(ActiveRecord::Base.connection.adapter_name)
@@ -74,7 +78,10 @@ module Searching
     end
 
     def when_not?(value)
-      !AREL.include?(id) && (id.to_s.start_with?('not') || !value)
+      return false if AREL.include?(id)
+      return !cast_bool(value) if id == :false
+
+      id.to_s.start_with?('not') || !cast_bool(value)
     end
   end
 end
