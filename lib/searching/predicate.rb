@@ -10,7 +10,8 @@ module Searching
 
     class << self
       def all
-        @all ||= [AREL, MATCHES, LITERAL, DERIVED].flatten.map { |id| new(id) }
+        @all ||= [AREL, MATCHES, LITERAL, DERIVED].flatten
+          .sort_by { |id| -id.size }.map { |id| new(id) }
       end
 
       def find(id)
