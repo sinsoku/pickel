@@ -35,7 +35,7 @@ module Searching
         when :blank
           klass.arel_table[column].eq_any([nil, ''])
         when :present
-          klass.arel_table[column].not_eq_any(nil)
+          klass.arel_table[column].not_eq_all([nil, ''])
         else
           { column => v }
         end
