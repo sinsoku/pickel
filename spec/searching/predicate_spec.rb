@@ -55,28 +55,28 @@ RSpec.describe Searching::Predicate do
       predicate = Searching::Predicate.new(:true)
       sql = predicate.build(User, 'paid', '1').to_sql
 
-      expect(sql).to eq 'SELECT "users".* FROM "users" WHERE "users"."paid" = \'t\''
+      expect(sql).to eq User.where(paid: true).to_sql
     end
 
     it 'builds a query using :true and falsy value' do
       predicate = Searching::Predicate.new(:true)
       sql = predicate.build(User, 'paid', '0').to_sql
 
-      expect(sql).to eq 'SELECT "users".* FROM "users" WHERE "users"."paid" != \'t\''
+      expect(sql).to eq User.where.not(paid: true).to_sql
     end
 
     it 'builds a query using :false' do
       predicate = Searching::Predicate.new(:false)
       sql = predicate.build(User, 'paid', '1').to_sql
 
-      expect(sql).to eq 'SELECT "users".* FROM "users" WHERE "users"."paid" = \'f\''
+      expect(sql).to eq User.where(paid: false).to_sql
     end
 
     it 'builds a query using :false and falsy value' do
       predicate = Searching::Predicate.new(:false)
       sql = predicate.build(User, 'paid', '0').to_sql
 
-      expect(sql).to eq 'SELECT "users".* FROM "users" WHERE "users"."paid" != \'f\''
+      expect(sql).to eq User.where.not(paid: false).to_sql
     end
 
     it 'builds a query using :blank' do
