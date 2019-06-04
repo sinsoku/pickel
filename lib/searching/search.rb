@@ -9,9 +9,9 @@ module Searching
       @klass = relation.klass
       @params =
         if params.nil? || (params.respond_to?(:permitted?) && params.permitted?)
-          params.to_h.symbolize_keys
+          params.to_h.symbolize_keys.reject { |_, v| v.blank? }
         else
-          params.to_unsafe_h
+          params.to_unsafe_h.reject { |_, v| v.blank? }
         end
       @sorts = []
       @sorts << @params.delete(:s)
