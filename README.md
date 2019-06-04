@@ -1,28 +1,55 @@
 # Searching
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/searching`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Searching provides methods that make it easy to create search forms for your Rails app.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your Rails application's Gemfile:
 
 ```ruby
 gem 'searching'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install searching
-
 ## Usage
 
-TODO: Write usage instructions here
+1. Allow parameters available for search.
+2. Create an object with the `searching` method.
+3. Create a search form with the `search_form_for` method.
+
+## in controller
+
+```ruby
+def index
+  @search = User.searching(search_params)
+  @users = @search.result
+end
+
+private
+
+def search_params
+  params.permit(:name_cont, :age_gt, :posts_title_start)
+end
+```
+
+## in view
+
+```erb
+<%= search_form_for @search do |f| %>
+  <%# Search records contains the value %>
+  <%= f.label :name_cont %>
+  <%= f.search_field :name_cont %>
+
+  <%# Search records grater than the value %>
+  <%= f.label :age_gt %>
+  <%= f.number_field :age_gt %>
+
+  <%# Search records an associated posts.title starts with the value %>
+  <%= f.label :posts_title_start %>
+  <%= f.search_field :posts_title_start %>
+
+  <%= f.submit %>
+<% end %>
+```
 
 ## Development
 
