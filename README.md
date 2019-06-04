@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/sinsoku/searching.svg?branch=master)](https://travis-ci.org/sinsoku/searching)
+
 # Searching
 
 Searching provides methods that make it easy to create search forms for your Rails app.
