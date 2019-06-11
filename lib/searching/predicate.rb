@@ -79,7 +79,6 @@ module Searching
 
     def when_not?(value)
       return false if AREL.include?(id)
-      return !cast_bool(value) if id == :false
 
       id.to_s.start_with?('not') || !cast_bool(value)
     end
