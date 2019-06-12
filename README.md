@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/pickel.svg)](https://badge.fury.io/rb/pickel)
 [![Build Status](https://travis-ci.org/sinsoku/pickel.svg?branch=master)](https://travis-ci.org/sinsoku/pickel)
 
 # Pickel
