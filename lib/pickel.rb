@@ -17,8 +17,9 @@ module Pickel
     def permit(params, *filters)
       return {} unless params.key?(:q)
 
-      # TODO: Extends filters with predicates
-      expanded = filters
+      expanded = filters.flat_map do |f|
+        Predicate.find(f.to_s) ? f : Predicate.all.map { |predicate| "#{f}_#{predicate.id}".to_sym }
+      end
       params[:q].permit(*expanded).to_h.reject { |_, v| v.blank? }
     end
   end
