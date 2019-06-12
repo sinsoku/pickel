@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Searching
+module Pickel
   class Condition
     class << self
       def for(klass, key)

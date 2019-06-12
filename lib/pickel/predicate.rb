@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Searching
+module Pickel
   class Predicate
     AREL = %i[eq in not_eq not_in lt lteq gt gteq matches].freeze
     MATCHES = %i[cont start end].flat_map { |x| [x, "not_#{x}".to_sym] }.freeze

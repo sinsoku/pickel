@@ -1,4 +1,4 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in searching.gemspec
+# Specify your gem's dependencies in pickel.gemspec
 gemspec

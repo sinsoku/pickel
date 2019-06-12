@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "searching"
+require "pickel"
 require "active_record"
 
 RSpec.configure do |config|

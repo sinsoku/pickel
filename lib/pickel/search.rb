@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
-module Searching
+module Pickel
   class Search
     include ActiveModel::Model
 
-    def initialize(relation, params = {}, _options = {})
+    def initialize(relation, params = {})
       @relation = relation
       @klass = relation.klass
-      @params =
-        if params.nil? || (params.respond_to?(:permitted?) && params.permitted?)
-          params.to_h.symbolize_keys.reject { |_, v| v.blank? }
-        else
-          params.to_unsafe_h.reject { |_, v| v.blank? }
-        end
+      @params = params || {}
       @sorts = []
       @sorts << @params.delete(:s)
       @sorts << @params.delete(:sorts)
@@ -34,6 +29,14 @@ module Searching
       else
         conditions.inject(relation, :merge).order(sorts)
       end
+    end
+
+    def html_id
+      "#{klass.to_s.underscore}_search"
+    end
+
+    def respond_to?(name, include_all = false)
+      super || params.key?(name)
     end
 
     def method_missing(method_id, *args)
